@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>关于Muse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2rem; }
+
+      :root {
+        --bg: #f7f4ee;
+        --surface: #fffdf8;
+        --surface-2: #efe9dd;
+        --ink: #22201b;
+        --ink-soft: #5c564a;
+        --line: #ddd4c3;
+        --accent: #b4552d;        /* 砖红 */
+        --accent-ink: #8f3f1f;
+        --accent-soft: #f3ddd0;
+        --teal: #1f5f56;
+        --teal-soft: #d9e8e2;
+        --gold: #a97b1e;
+        --shadow: 0 10px 30px rgba(60, 45, 20, .10);
+        --radius: 14px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #171512;
+          --surface: #211e1a;
+          --surface-2: #2a2621;
+          --ink: #ece6d9;
+          --ink-soft: #b3ab9c;
+          --line: #3d3830;
+          --accent: #e08a5f;
+          --accent-ink: #eda87e;
+          --accent-soft: #3d2a20;
+          --teal: #7fc4b4;
+          --teal-soft: #22352f;
+          --gold: #d9b45c;
+          --shadow: 0 10px 30px rgba(0,0,0,.45);
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Noto Sans SC", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+        line-height: 1.75;
+        font-size: 16px;
+      }
+      .serif { font-family: "Noto Serif SC", "Songti SC", serif; }
+
+      .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px 72px; }
+
+      /* ---------- Hero ---------- */
+      .hero { padding: 56px 0 8px; }
+      .hero .kicker {
+        display: inline-block;
+        font-size: 13px; letter-spacing: .18em;
+        color: var(--accent-ink);
+        border: 1px solid var(--accent);
+        border-radius: 999px;
+        padding: 2px 14px;
+        margin-bottom: 22px;
+      }
+      .hero h1 {
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-weight: 900;
+        font-size: clamp(34px, 7vw, 54px);
+        line-height: 1.25;
+        margin: 0 0 18px;
+      }
+      .hero h1 .name { color: var(--accent); }
+      .hero p.lede { font-size: 18px; color: var(--ink-soft); max-width: 640px; margin: 0 0 28px; }
+      .hero .facts { display: flex; flex-wrap: wrap; gap: 10px; }
+      .hero .facts span {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: 999px; padding: 6px 16px; font-size: 14px;
+      }
+      .hero .facts b { color: var(--teal); font-weight: 700; }
+
+      /* ---------- Section ---------- */
+      section { margin-top: 64px; }
+      h2.sec {
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-size: clamp(24px, 4.5vw, 32px); font-weight: 700;
+        margin: 0 0 8px; line-height: 1.35;
+      }
+      .sec-sub { color: var(--ink-soft); margin: 0 0 26px; max-width: 620px; }
+
+      /* ---------- Chat demo ---------- */
+      .demo {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .demo-head {
+        display: flex; align-items: center; gap: 10px;
+        padding: 14px 18px; border-bottom: 1px solid var(--line);
+        background: var(--surface-2);
+        font-weight: 700; font-size: 15px;
+      }
+      .demo-head .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); flex: none; }
+      .demo-head .hint { margin-left: auto; font-weight: 400; font-size: 13px; color: var(--ink-soft); }
+      .chat { padding: 20px 18px 8px; min-height: 240px; }
+      .msg { display: flex; margin-bottom: 14px; }
+      .msg .bubble {
+        max-width: 82%; padding: 10px 16px; border-radius: 16px; font-size: 15px; line-height: 1.65;
+      }
+      .msg.user { justify-content: flex-end; }
+      .msg.user .bubble { background: var(--teal); color: #fff; border-bottom-right-radius: 4px; }
+      @media (prefers-color-scheme: dark) { .msg.user .bubble { color: #10201c; } }
+      .msg.muse .bubble { background: var(--surface-2); border-bottom-left-radius: 4px; }
+      .msg .who { font-size: 12px; color: var(--ink-soft); margin-bottom: 2px; }
+      .typing { display: inline-flex; gap: 5px; padding: 14px 16px; }
+      .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-soft); animation: blink 1s infinite; }
+      .typing i:nth-child(2) { animation-delay: .18s; }
+      .typing i:nth-child(3) { animation-delay: .36s; }
+      @keyframes blink { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+      @media (prefers-reduced-motion: reduce) { .typing i { animation: none; } html { scroll-behavior: auto; } }
+      .ask-row { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 18px 18px; border-top: 1px dashed var(--line); }
+      .ask-row .label { width: 100%; font-size: 13px; color: var(--ink-soft); }
+      .ask-btn {
+        border: 1px solid var(--accent); color: var(--accent-ink);
+        background: transparent; border-radius: 999px;
+        padding: 6px 16px; font-size: 14px; cursor: pointer; font-family: inherit;
+        min-height: 36px;
+      }
+      .ask-btn:hover, .ask-btn:focus-visible { background: var(--accent-soft); }
+      .ask-btn:disabled { opacity: .45; cursor: default; }
+      .ask-btn:disabled:hover { background: transparent; }
+
+      /* ---------- Capability explorer ---------- */
+      .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+      .tab {
+        border: 1px solid var(--line); background: var(--surface);
+        border-radius: 10px; padding: 8px 18px; font-size: 15px; cursor: pointer;
+        font-family: inherit; color: var(--ink); min-height: 40px;
+      }
+      .tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 700; }
+      .panel {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: var(--radius); padding: 26px 26px 20px; box-shadow: var(--shadow);
+      }
+      .panel h3 { margin: 0 0 6px; font-size: 20px; font-family: "Noto Serif SC", serif; }
+      .panel p { margin: 0 0 16px; color: var(--ink-soft); }
+      .panel ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 22px; }
+      .panel li { padding-left: 22px; position: relative; font-size: 15px; }
+      .panel li::before { content: "—"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+      @media (max-width: 560px) { .panel ul { grid-template-columns: 1fr; } .panel { padding: 20px 18px 14px; } }
+
+      /* ---------- Day timeline ---------- */
+      .day { border-left: 2px solid var(--line); margin-left: 8px; padding-left: 26px; display: grid; gap: 26px; }
+      .day-item { position: relative; }
+      .day-item::before {
+        content: ""; position: absolute; left: -33px; top: 8px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--bg); border: 3px solid var(--accent);
+      }
+      .day-item .time { font-size: 13px; color: var(--gold); font-weight: 700; letter-spacing: .06em; }
+      .day-item h3 { margin: 2px 0 4px; font-size: 17px; }
+      .day-item p { margin: 0; color: var(--ink-soft); font-size: 15px; max-width: 600px; }
+
+      /* ---------- Difference ---------- */
+      .diff { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      @media (max-width: 640px) { .diff { grid-template-columns: 1fr; } }
+      .diff .col { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
+      .diff .col.muse-col { border-color: var(--teal); }
+      .diff h3 { margin: 0 0 12px; font-size: 17px; }
+      .diff ul { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: 15px; }
+      .diff li { margin-bottom: 6px; }
+
+      /* ---------- FAQ ---------- */
+      details {
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: 10px; padding: 4px 20px; margin-bottom: 10px;
+      }
+      summary { cursor: pointer; font-weight: 700; padding: 12px 0; font-size: 16px; }
+      details p { margin: 0 0 16px; color: var(--ink-soft); font-size: 15px; }
+
+      footer { margin-top: 72px; border-top: 1px solid var(--line); padding-top: 20px; color: var(--ink-soft); font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <!-- Hero -->
+      <header class="hero">
+        <span class="kicker">个人 AI 助手</span>
+        <h1>你好，我是 <span class="name">Muse</span>，<br />一个住在你身边的 AI 助手。</h1>
+        <p class="lede">Muse 是 Meta 推出的个人智能体。它不只是回答问题，还能记住你的习惯、替你查资料、做网页、处理文件、生成图片和视频——你交代一件事，它会自己拆步骤、找工具，把事情做完再回来汇报。</p>
+        <div class="facts">
+          <span>出品方 <b>Meta</b></span>
+          <span>定位 <b>个人智能体</b></span>
+          <span>能 <b>动手做事</b>，不只聊天</span>
+          <span>有 <b>长期记忆</b></span>
+        </div>
+      </header>
+
+      <!-- Interactive chat demo -->
+      <section aria-labelledby="demo-title">
+        <h2 class="sec" id="demo-title">先感受一下：跟 Muse 说话是什么样</h2>
+        <p class="sec-sub">点下面任意一个问题，看看 Muse 会怎么接话。这是一个页面内的小演示，回答是预先写好的示例。</p>
+        <div class="demo">
+          <div class="demo-head"><span class="dot"></span>与 Muse 对话<span class="hint">演示</span></div>
+          <div class="chat" id="chat" aria-live="polite">
+            <div class="msg muse"><div><div class="who">Muse</div><div class="bubble">你好，我是 Muse。想让我帮你做点什么？可以点下面的问题试试。</div></div></div>
+          </div>
+          <div class="ask-row" id="askRow">
+            <span class="label">试着问一句：</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Capability explorer -->
+      <section aria-labelledby="cap-title">
+        <h2 class="sec" id="cap-title">Muse 能做哪些事</h2>
+        <p class="sec-sub">点不同的分类看看。简单说：能动嘴的它能聊，能动手的它也能干。</p>
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div class="panel" id="panel" role="tabpanel"></div>
+      </section>
+
+      <!-- A day with Muse -->
+      <section aria-labelledby="day-title">
+        <h2 class="sec" id="day-title">有 Muse 的一天（示例）</h2>
+        <p class="sec-sub">下面是一天的用法示意，看看它怎么嵌进日常。</p>
+        <div class="day">
+          <div class="day-item">
+            <div class="time">早上</div>
+            <h3>先问一句今天的安排</h3>
+            <p>「今天有什么事？」Muse 会结合你的日历和待办，把一天的重点先捋一遍，顺带提醒别忘了的事。</p>
+          </div>
+          <div class="day-item">
+            <div class="time">上午</div>
+            <h3>把查资料的活交出去</h3>
+            <p>想了解一个产品、一个地方、一件事的来龙去脉，Muse 自己上网搜、打开页面核对，回来给你带出处的小结，而不是凭印象编。</p>
+          </div>
+          <div class="day-item">
+            <div class="time">下午</div>
+            <h3>让它动手做东西</h3>
+            <p>要一个网页、一份文档、一张图、一段视频，直接说需求就行——就像你现在看的这个页面，就是跟 Muse 说一句话做出来的。</p>
+          </div>
+          <div class="day-item">
+            <div class="time">晚上</div>
+            <h3>琐事收尾，明天接着来</h3>
+            <p>今天定的事、你的偏好、没办完的进度，Muse 都会记下来。下次开口不用从头解释，它知道上下文。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Difference -->
+      <section aria-labelledby="diff-title">
+        <h2 class="sec" id="diff-title">和普通聊天机器人有什么不一样</h2>
+        <p class="sec-sub">关键区别在「能不能把事办成」和「记不记得你」。</p>
+        <div class="diff">
+          <div class="col">
+            <h3>普通聊天机器人</h3>
+            <ul>
+              <li>主要靠对话回答问题</li>
+              <li>聊完就忘，下次从零开始</li>
+              <li>给建议，但不动手执行</li>
+              <li>信息真假需要你自己再核对</li>
+            </ul>
+          </div>
+          <div class="col muse-col">
+            <h3>Muse</h3>
+            <ul>
+              <li>能调用工具：搜索、做网页、处理文件、生成图片视频</li>
+              <li>有长期记忆，记得你的偏好和进行中的事</li>
+              <li>接到任务会自己拆步骤做完，再汇报结果</li>
+              <li>查到的信息会给出处，拿不准会直说</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section aria-labelledby="faq-title">
+        <h2 class="sec" id="faq-title">常见问题</h2>
+        <p class="sec-sub">点开问题看回答。</p>
+        <details>
+          <summary>Muse 是谁做的？</summary>
+          <p>Muse 是 Meta 的个人 AI 助手产品，背后是 Muse 系列模型。你现在对话的这个，就是 Muse 本身。</p>
+        </details>
+        <details>
+          <summary>它真的能记住我说过的话吗？</summary>
+          <p>能。重要的事实、你的偏好、正在进行的事会被记进它的记忆里，之后聊天时会自动带上。比如你说过一次的习惯，下次不用再重复交代。当然，你也可以让它忘掉某件事。</p>
+        </details>
+        <details>
+          <summary>让它做的网页、文件放在哪？</summary>
+          <p>它做的东西会以成品形式直接发给你看，像这个页面一样点开就能用，不需要你自己找服务器、配环境。</p>
+        </details>
+        <details>
+          <summary>它会不会乱编信息？</summary>
+          <p>Muse 的原则是：能查证的先查证再说，查不到就明确告诉你查不到，不拿编的内容填空。涉及价格、时间、地址这类要紧的信息，它会给出处方便你核对。</p>
+        </details>
+        <details>
+          <summary>我想用它，从哪开始？</summary>
+          <p>直接开口就行。不用学指令，不用先想好格式——像跟人交代事情一样说清楚你想要什么，剩下的步骤它来拆。</p>
+        </details>
+      </section>
+
+      <footer>
+        <p>这个页面由 Muse 制作 · 内容为对 Muse 的一般介绍，演示对话为页面内示例。</p>
+      </footer>
+    </div>
+
+    <script>
+      /* ---------- Chat demo ---------- */
+      var QA = [
+        {
+          q: "Muse 是什么？",
+          a: "我是 Meta 做的个人 AI 助手。你可以把我当成一个能记住事、能动手干活的搭档：查资料、写东西、做网页、处理文件、生成图片视频，都可以直接交代给我。"
+        },
+        {
+          q: "你能帮我做个网页吗？",
+          a: "能。你说清楚想要什么内容和样子，我就直接做出来发你看——你现在浏览的这个页面，就是这样一句话做出来的。做完不满意，告诉我改哪里，我接着改。"
+        },
+        {
+          q: "你记性怎么样？",
+          a: "我有长期记忆。你告诉我的偏好、正在忙的事、定下来的规矩，我都会记着，下次聊天自动带上，不用你每次从头解释。你也可以随时让我忘掉某件事。"
+        },
+        {
+          q: "你查的东西靠谱吗？",
+          a: "我会先去查再回答，并把出处一起给你；查不到或者拿不准，我会直接说拿不准，不会编一个看起来像真的答案糊弄你。"
+        }
+      ];
+
+      var chat = document.getElementById("chat");
+      var askRow = document.getElementById("askRow");
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function addMsg(role, text) {
+        var row = document.createElement("div");
+        row.className = "msg " + role;
+        var inner = document.createElement("div");
+        var who = document.createElement("div");
+        who.className = "who";
+        who.textContent = role === "user" ? "你" : "Muse";
+        var bubble = document.createElement("div");
+        bubble.className = "bubble";
+        bubble.textContent = text;
+        inner.appendChild(who);
+        inner.appendChild(bubble);
+        row.appendChild(inner);
+        chat.appendChild(row);
+        row.scrollIntoView({ block: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+        return bubble;
+      }
+
+      QA.forEach(function (item) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "ask-btn";
+        btn.textContent = item.q;
+        btn.addEventListener("click", function () {
+          btn.disabled = true;
+          addMsg("user", item.q);
+          var typingRow = document.createElement("div");
+          typingRow.className = "msg muse";
+          var t = document.createElement("div");
+          t.className = "bubble typing";
+          t.innerHTML = "<i></i><i></i><i></i>";
+          typingRow.appendChild(t);
+          chat.appendChild(typingRow);
+          setTimeout(function () {
+            chat.removeChild(typingRow);
+            addMsg("muse", item.a);
+          }, reduceMotion ? 60 : 700);
+        });
+        askRow.appendChild(btn);
+      });
+
+      /* ---------- Capability explorer ---------- */
+      var CATS = [
+        {
+          name: "聊与记",
+          title: "对话和记忆",
+          desc: "像跟一个熟人说话：它懂上下文，记得你，也记得你们一起定下来的事。",
+          items: ["日常问答、解释概念、帮你想思路", "记住你的偏好、习惯和规矩", "记住进行中的项目和进度", "接着上次的话题继续聊", "帮你整理想法、列计划", "你说忘掉，它就忘掉"]
+        },
+        {
+          name: "查与核",
+          title: "联网调研",
+          desc: "不凭印象答：先上网查、打开原文核对，再把结论和出处一起给你。",
+          items: ["搜索新闻、产品、地点、教程", "打开网页逐项核对细节", "对比多个方案的优缺点", "核查一条消息是真是假", "整理带出处的调研小结", "查不到就直说查不到"]
+        },
+        {
+          name: "做与写",
+          title: "制作成品",
+          desc: "交代一句话，拿到的是成品，不是半成品的建议。",
+          items: ["做能打开就用的网页", "写和改文档、表格、文案", "整理文件、批量处理资料", "写小说、续写章节、润色去味", "生成图片和短视频", "把零散信息整理成清爽的页面"]
+        },
+        {
+          name: "办与连",
+          title: "日常事务",
+          desc: "连上你的邮箱、日历等服务之后，琐事也能直接交办。",
+          items: ["看邮件、找邮件、起草回复", "看日历、安排和提醒日程", "订机票酒店、查航班状态", "找餐厅、订座位", "购物比价、找二手好物", "管理任务和待办清单"]
+        }
+      ];
+
+      var tabsEl = document.getElementById("tabs");
+      var panelEl = document.getElementById("panel");
+
+      function renderPanel(i) {
+        var c = CATS[i];
+        panelEl.innerHTML = "";
+        var h = document.createElement("h3");
+        h.textContent = c.title;
+        var p = document.createElement("p");
+        p.textContent = c.desc;
+        var ul = document.createElement("ul");
+        c.items.forEach(function (it) {
+          var li = document.createElement("li");
+          li.textContent = it;
+          ul.appendChild(li);
+        });
+        panelEl.appendChild(h);
+        panelEl.appendChild(p);
+        panelEl.appendChild(ul);
+        var tabs = tabsEl.querySelectorAll(".tab");
+        for (var k = 0; k < tabs.length; k++) {
+          tabs[k].setAttribute("aria-selected", k === i ? "true" : "false");
+        }
+      }
+
+      CATS.forEach(function (c, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "tab";
+        b.setAttribute("role", "tab");
+        b.setAttribute("aria-selected", i === 0 ? "true" : "false");
+        b.textContent = c.name;
+        b.addEventListener("click", function () { renderPanel(i); });
+        tabsEl.appendChild(b);
+      });
+      renderPanel(0);
+    </script>
+  </body>
+</html>
